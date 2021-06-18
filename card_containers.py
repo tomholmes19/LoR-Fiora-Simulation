@@ -80,24 +80,6 @@ class Hand(CardContainer):
         
         return None
     
-    def replace_all(self, deck, shuffle=True) -> None:
-        """
-        Places all cards in hand onto the top of the deck
-
-        Input:
-            deck (Deck): Deck to receive the Cards
-            shuffle (bool): if True, shuffle the Deck after replacement
-        
-        Return:
-            None
-        """
-        while len(self) > 0:
-            self.replace(deck, 0, shuffle=False)
-        
-        if shuffle:
-            deck.shuffle()
-        
-        return None
     
     def play(self, index, **kwargs) -> None:
         """
@@ -110,10 +92,7 @@ class Hand(CardContainer):
             None
         """
         card = self[index]
-        if card in self.cards:
-            card.play(**kwargs)
-            self.cards.remove(card)
-        else:
-            raise ValueError("Tried to play card {} not in hand {}".format(card, self))
+        card.play(**kwargs)
+        self.cards.remove(card)
 
         return None
