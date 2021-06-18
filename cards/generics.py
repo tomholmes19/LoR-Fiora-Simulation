@@ -1,7 +1,5 @@
 import random
 
-from card_containers import *
-
 class Card:
     def __init__(self, name, cost) -> None:
         self.name = name
@@ -23,8 +21,6 @@ class Spell(Card):
             super().__str__() + "\n" +
             "Speed:\t {}".format(self.speed)
         )
-
-
 
 class Unit(Card):
     def __init__(self, name, cost, power, health) -> None:
