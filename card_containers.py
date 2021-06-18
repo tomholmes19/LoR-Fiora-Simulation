@@ -1,5 +1,9 @@
 import random
 
+"""
+Classes for objects which hold cards, i.e. the deck and hand.
+"""
+
 class CardContainer:
     def __init__(self, cards) -> None:
         self.cards = cards

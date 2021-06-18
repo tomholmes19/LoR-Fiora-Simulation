@@ -1,4 +1,6 @@
-import random
+"""
+Generic classes which can be extended to create specific cards
+"""
 
 class Card:
     def __init__(self, name, cost) -> None:
