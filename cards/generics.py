@@ -13,9 +13,6 @@ class Card:
             "Cost:\t {}".format(self.cost)
         )
 
-    def __iter__(self):
-        return self
-
 class Spell(Card):
     def __init__(self, name, cost, speed) -> None:
         super().__init__(name, cost)

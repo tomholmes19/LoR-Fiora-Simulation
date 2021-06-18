@@ -1,19 +1,21 @@
 import cards
 import card_containers
 
-def check_fiora(hand) -> bool:
+def in_hand(hand, *args) -> bool:
     """
-    Checks if a Fiora or Entreat card is in Hand
+    Checks if a card with name specified in *args is in hand
 
     Input:
         hand (Hand): the hand to check
+        *args (tuple): tuple of card names to check
     
     Return:
-        in_hand (bool): True if Fiora in hand, False otherwise
+        in_hand (bool): True if card type in hand, false otherwise
     """
+
     in_hand = False
-    for card in card_containers.hand:
-        if isinstance(card, cards.fiora.Fiora) or isinstance(card, cards.entreat.Entreat):
+    for card in hand:
+        if card.name in args:
             in_hand = True
             break
     
@@ -31,12 +33,12 @@ def deck_builder(card_dict, shuffle=True):
     Return:
         deck (Deck): Deck object containing the cards from card_dict
     """
-    cards = []
+    card_list = []
 
     for card, n in card_dict.items():
-        cards += [card for _ in range(n)]
+        card_list += [card for _ in range(n)]
     
-    deck = card_containers.Deck(cards=cards)
+    deck = card_containers.Deck(cards=card_list)
 
     if shuffle:
         deck.shuffle()
@@ -44,11 +46,16 @@ def deck_builder(card_dict, shuffle=True):
     return deck
 
 if __name__ == "__main__":
-    cards = {
+    card_dict = {
         cards.generics.Card(name="_", cost=0): 34,
         cards.fiora.Fiora(): 3,
         cards.entreat.Entreat(): 3
     }
 
-    deck = deck_builder(cards)
+    deck = deck_builder(card_dict)
     print(deck)
+
+def sim_draw(current_draw, hand, deck) -> int:
+    draw = current_draw + 1
+    hand.draw(deck)
+    return draw

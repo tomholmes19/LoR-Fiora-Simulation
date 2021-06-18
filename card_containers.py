@@ -39,7 +39,7 @@ class Hand(CardContainer):
     def __init__(self, cards=[]) -> None:
         super().__init__(cards)
     
-    def draw(self, deck, card=None) -> None:
+    def draw(self, deck, card=None):
         """
         Draws a Card from a Deck. If card=None then draw the top most Card from the Deck.
 
@@ -66,12 +66,12 @@ class Hand(CardContainer):
         Input:
             deck (Deck): Deck to receive the Card
             index (int): index of Card in Hand
-            shuffle (bool): whether to shuffle the Deck after replacement
+            shuffle (bool): if True, shuffle the Deck after replacement
         
         Return:
             None
         """
-        card = self.cards[index]
+        card = self[index]
         self.cards.remove(card)
         deck.cards.append(card)
 
@@ -79,17 +79,37 @@ class Hand(CardContainer):
             deck.shuffle()
         
         return None
+    
+    def replace_all(self, deck, shuffle=True) -> None:
+        """
+        Places all cards in hand onto the top of the deck
 
-    def play(self, card, **kwargs) -> None:
+        Input:
+            deck (Deck): Deck to receive the Cards
+            shuffle (bool): if True, shuffle the Deck after replacement
+        
+        Return:
+            None
+        """
+        while len(self) > 0:
+            self.replace(deck, 0, shuffle=False)
+        
+        if shuffle:
+            deck.shuffle()
+        
+        return None
+    
+    def play(self, index, **kwargs) -> None:
         """
         Plays a card in hand
 
         Input:
-            card (Card): the card to play
+            index (int): index of Card in Hand
 
         Return:
             None
         """
+        card = self[index]
         if card in self.cards:
             card.play(**kwargs)
             self.cards.remove(card)
