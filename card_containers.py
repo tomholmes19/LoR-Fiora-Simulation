@@ -7,6 +7,12 @@ class CardContainer:
     def __str__(self) -> str:
         card_names = [card.name for card in self.cards]
         return ", ".join(card_names)
+    
+    def __getitem__(self, key):
+        return self.cards[key]
+    
+    def __len__(self):
+        return len(self.cards)
 
 class Deck(CardContainer):
     def __init__(self, cards=[]) -> None:
