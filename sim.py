@@ -17,18 +17,20 @@ def simulation(cards_to_draw, deck_size=40, mulligan_size=4):
     """
     # Initialize variables
 
+    card_names = [card.name for card in cards_to_draw]
+
     non_generics = sum([num for num in cards_to_draw.values()])
     generics = deck_size - non_generics
 
     card_dict = {cards.generics.Card(name="_", cost=0): generics} | cards_to_draw
     deck = utils.deck_builder(card_dict)
 
-    hand = card_containers.Hand()
+    hand = card_containers.Hand(cards=[])
 
     current_draw = 0
 
     # Simulate game
-    while not utils.in_hand(hand, ["Fiora", "Entreat"]):
+    while not utils.in_hand(hand, card_names):
         # Mulligan
         if current_draw == 2*mulligan_size:
             for _ in range(mulligan_size):
@@ -40,9 +42,3 @@ def simulation(cards_to_draw, deck_size=40, mulligan_size=4):
         hand.draw(deck)
 
     return current_draw
-
-cards_to_draw = {
-    cards.fiora.Fiora(): 3,
-    cards.entreat.Entreat(): 3
-}
-print(simulation(cards_to_draw, deck_size=50, mulligan_size=5))
