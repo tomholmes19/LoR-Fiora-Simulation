@@ -33,11 +33,12 @@ def simulation(cards_to_draw, deck_size=40, mulligan_size=4):
     while not utils.in_hand(hand, card_names):
         # Mulligan
         if current_draw == 2*mulligan_size:
+            print(hand)
             for _ in range(mulligan_size):
                 # index=0 ensures the 4 first cards added into hand are replaced
                 hand.replace(deck, index=0, shuffle=False)
                 deck.shuffle()
-        
+
         current_draw += 1
         hand.draw(deck)
 
